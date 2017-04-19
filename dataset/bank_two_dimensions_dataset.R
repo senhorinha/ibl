@@ -1,4 +1,4 @@
-bankTwoDimensionsDataset = setRefClass("bankTwoDimensionsDataset",
+BankTwoDimensionsDataset = setRefClass("BankTwoDimensionsDataset",
     contains = "Dataset",
     methods = list(
       points = function(classColumnNumber) {

@@ -21,3 +21,9 @@ source('dataset/spiral.R')
 source('dataset/double_spiral.R')
 source('dataset/cancer_dataset.R')
 source('dataset/iris_dataset.R')
+
+# Plotters
+source('plotter.R')
+
+# IBL
+source('ibl_util.R')
