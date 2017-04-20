@@ -27,6 +27,38 @@ IblUtil = setRefClass("IblUtil",
           plotter = Plotter$new()
           plotter$plotGraph(dc, 'ibl2_plot.png')
         }
+      },
+
+      convertDatasetToVectorOfPoints = function (dataset) {
+        rowsSize = dim(dataset)[1]
+        points = list()
+        for(rowIndex in 1:rowsSize) {
+          points[['rowIndex']] = Point$new(dataset[rowIndex, ])
+        }
+
+        points
+      },
+
+      isAcceptable = function (point) {
+        z = 0.9
+        bottomLimit = bottomLimit(z, point)
+        upperLimit = upperLimit(z, point)
+
+        upperLimit < bottomLimit
+      },
+      
+      bottomLimit = function (z, point) {
+        p = point$getClassificationsPrecision()
+        n = point$getClassificationsCount()
+
+        (p + (z ^ 2 / 2 * n) - (z * sqrt(p * (1 - p)/n + (z^2 / 4 * n^2))))/(1 + (z^2/2))
+      },
+
+      upperLimit = function (z, point) {
+        p = point$getClassificationsPrecision()
+        n = point$getClassificationsCount()
+
+        (p + (z ^ 2 / 2 * n) + (z * sqrt(p * (1 - p)/n + (z^2 / 4 * n^2))))/(1 + (z^2/2))
       }
     )
 )
