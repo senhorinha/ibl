@@ -1,22 +1,24 @@
 source('dependencies.R')
 
-loop = function (trainingDataset, dc, correctClassifications = 0, incorrectClassifications = 0) {
-  rowsSize = dim(trainingDataset)[1]
-  clazzIndex = dim(trainingDataset)[2]
-  distanceCalculator = EuclideanDistanceCalculator$new()
-  for(i in 1:rowsSize) {
-    classifier = NearestNeighbourClassifier$new(distanceCalculator, dc)
-    trainingPoint = trainingDataset[i,]
-    values = trainingPoint[seq(1, (clazzIndex - 1))]
+loop = function (trainingPoints, dc, correctClassifications = 0, incorrectClassifications = 0) {
+  if (length(trainingPoints) > 0) {
+    firsPointValues = trainingPoints$values
+    rowsSize = dim(firsPointValues)[1]
+    clazzIndex = dim(firsPointValues)[2]
+    distanceCalculator = EuclideanDistanceCalculator$new()
 
-    oldClazz = trainingPoint[clazzIndex]
-    newClazz = classifier$classify(values)
-    if(newClazz == oldClazz) {
-      correctClassifications = correctClassifications + 1
-    } else {
-      dc = rbind(dc, trainingPoint)
-      incorrectClassifications = incorrectClassifications + 1
-    }
+    for(i in 1:rowsSize) {
+      classifier = NearestNeighbourClassifier$new(distanceCalculator, dc)
+      trainingPoint = trainingPoints[i]
+
+      classifiedClass = classifier$classify(trainingPoint$getValues())
+      if(classifiedClass == trainingPoint$getClass()) {
+        correctClassifications = correctClassifications + 1
+      } else {
+        dc = rbind(dc, trainingPoint)
+        incorrectClassifications = incorrectClassifications + 1
+      }
+     }
   }
 
   list('dc' = dc, 'correctClassifications' = correctClassifications, 'incorrectClassifications' = incorrectClassifications)
@@ -24,12 +26,13 @@ loop = function (trainingDataset, dc, correctClassifications = 0, incorrectClass
 
 initialDataset = IrisDataset$new() # Available datasets: IrisDataset$new(), CarsDataset$new(), CancerDataset$new(), DoubleSpiral$new(), BankTwoDimensionsDataset$new()
 iblUtil = IblUtil$new()
+points = iblUtil$convertDatasetPointsToIblPoints(initialDataset$points())
 datasets = iblUtil$divideDatasetIntoUpperBottomAndDc(initialDataset);
-upperHalfOfDataset = datasets$upperHalf
-bottomHalfOfDataset = datasets$bottom
+upperHalfPoints = iblUtil$convertDatasetPointsToIblPoints(datasets$upperHalf)
+bottomHalfPoints = iblUtil$convertDatasetPointsToIblPoints(datasets$bottomHalf)
 dc = datasets$dc
 
-firstTrainingResult = loop(upperHalfOfDataset, dc)
+firstTrainingResult = loop(upperHalfPoints, dc)
 finalTrainingResult = loop(
   bottomHalfOfDataset,
   firstTrainingResult$dc,

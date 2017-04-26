@@ -29,11 +29,11 @@ IblUtil = setRefClass("IblUtil",
         }
       },
 
-      convertDatasetToVectorOfPoints = function (dataset) {
-        rowsSize = dim(dataset)[1]
+      convertDatasetPointsToIblPoints = function (datasetPoints) {
+        rowsSize = dim(datasetPoints)[1]
         points = list()
         for(rowIndex in 1:rowsSize) {
-          points[['rowIndex']] = Point$new(dataset[rowIndex, ])
+          points[[rowIndex]] = Point$new(datasetPoints[rowIndex, ])
         }
 
         points

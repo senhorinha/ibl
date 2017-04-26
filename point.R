@@ -1,8 +1,8 @@
 Point = setRefClass("Point",
-    fields = list(values = 'vector', correctClassificationsCount = 'numeric', incorrectClassificationsCount = 'numeric'),
+    fields = list(valuesWithClass = 'vector', correctClassificationsCount = 'numeric', incorrectClassificationsCount = 'numeric'),
     methods = list(
-      initialize = function(values, clazz) {
-        .self$values = values
+      initialize = function(valuesWithClass, clazz) {
+        .self$valuesWithClass = valuesWithClass
         .self$correctClassificationsCount = 3
         .self$incorrectClassificationsCount = 10
       },
@@ -19,6 +19,14 @@ Point = setRefClass("Point",
 
       getClassificationsCount = function () {
         correctClassificationsCount + incorrectClassificationsCount
+      },
+
+      getValues = function () {
+        head(values, length(values) - 1)
+      },
+
+      getClass = function () {
+        tail(values, 1)
       }
     )
 )

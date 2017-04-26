@@ -27,3 +27,4 @@ source('plotter.R')
 
 # IBL
 source('ibl_util.R')
+source('point.R')
