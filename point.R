@@ -3,17 +3,17 @@ Point = setRefClass("Point",
     methods = list(
       initialize = function(valuesWithClass, clazz) {
         .self$valuesWithClass = valuesWithClass
-        .self$correctClassificationsCount = 3
-        .self$incorrectClassificationsCount = 10
+        .self$correctClassificationsCount = 1
+        .self$incorrectClassificationsCount = 0
       },
 
       getClassificationsPrecision = function () {
-        precision = 0
+        precision = 100
         classificationsCount = .self$getClassificationsCount()
         if (classificationsCount != 0) {
-          precision = correctClassificationsCount / classificationsCount  
+          precision = correctClassificationsCount / classificationsCount
         }
-        
+
         precision
       },
 
@@ -21,12 +21,20 @@ Point = setRefClass("Point",
         correctClassificationsCount + incorrectClassificationsCount
       },
 
+      incrementCorrectClassification = function () {
+        .self$correctClassificationsCount = correctClassificationsCount + 1;
+      },
+
+      incrementIncorrectClassification = function () {
+        .self$incorrectClassificationsCount = incorrectClassificationsCount + 1;
+      },
+
       getValues = function () {
-        head(values, length(values) - 1)
+        head(valuesWithClass, length(valuesWithClass) - 1)
       },
 
       getClass = function () {
-        tail(values, 1)
+        tail(valuesWithClass, 1)
       }
     )
 )

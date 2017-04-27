@@ -1,4 +1,4 @@
-# Implementação IBL 1 e IBL 2
+# Implementação IBL 3
 
 **Thiago Senhorinha Rose (12100774)**
 
@@ -15,14 +15,13 @@ install.packages(c("readxl", "hashmap"), dependencies=TRUE)
 ## Como executar?
 
 1. Primeirmanete é preciso entrar no modo de execução de scripts R na pasta raiz do projeto (/ibl)
-2. Execute o arquivo do algoritmo escolhido (ibl 1 ou ibl 2) com o comando abaixo:
+2. Execute o arquivo do algoritmo do ibl 3 com o comando abaixo:
 
 ```r
-source('ibl_1.R') # Para executar o algoritmo IBL 1
-source('ibl_2.R') # Para executar o algoritmo IBL 2
+source('ibl_3.R') # Para executar o algoritmo IBL 3
 ```
 
-**Obs:** Por padrão o dataset escolhido foi o da Iris porém é possível trocar de dataset alterando a variável ```initialDataset```  do arquivo escolhido (*ibl_1.R* ou *ibl_2.R*). Datasets disponíveis:
+**Obs:** Por padrão o dataset escolhido foi o da CancerDataset porém é possível trocar de dataset alterando a variável ```initialDataset```  arquivo  *ibl_3.R*. Datasets disponíveis:
 
 ```r
 IrisDataset$new()

@@ -39,14 +39,6 @@ IblUtil = setRefClass("IblUtil",
         points
       },
 
-      isAcceptable = function (point) {
-        z = 0.9
-        bottomLimit = bottomLimit(z, point)
-        upperLimit = upperLimit(z, point)
-
-        upperLimit < bottomLimit
-      },
-      
       bottomLimit = function (z, point) {
         p = point$getClassificationsPrecision()
         n = point$getClassificationsCount()
@@ -59,6 +51,22 @@ IblUtil = setRefClass("IblUtil",
         n = point$getClassificationsCount()
 
         (p + (z ^ 2 / 2 * n) + (z * sqrt(p * (1 - p)/n + (z^2 / 4 * n^2))))/(1 + (z^2/2))
+      },
+
+      isAcceptable = function (point) {
+        z = 0.9
+        bl = .self$bottomLimit(z, point)
+        ul = .self$upperLimit(z, point)
+
+        ul < bl
+      },
+
+      isRejectable = function (point) {
+        z = 0.9
+        bl = .self$bottomLimit(z, point)
+        ul = .self$upperLimit(z, point)
+
+        ul > bl
       }
     )
 )
