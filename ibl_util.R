@@ -22,11 +22,8 @@ IblUtil = setRefClass("IblUtil",
       },
 
       plotGraph = function (dc) {
-        isBidimensional = dim(dc)[2] == 3
-        if(isBidimensional) {
-          plotter = Plotter$new()
-          plotter$plotGraph(dc, 'ibl2_plot.png')
-        }
+        plotter = Plotter$new()
+        plotter$plotGraph(dc, 'ibl2_plot.png')
       },
 
       convertDatasetPointsToIblPoints = function (datasetPoints) {

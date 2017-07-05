@@ -8,9 +8,7 @@ Plotter = setRefClass("Plotter",
         palette(col.list)
         classSeparation <- as.factor(points[,clazzColumnIndex])
 
-        png(path)
         plot(points, pch=19, col=classSeparation)
-        dev.off()
       }
     )
 )

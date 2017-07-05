@@ -111,4 +111,17 @@ finalTrainingResult = loop(
   firstTrainingResult$incorrectClassifications
 )
 
-iblUtil$printResult(finalTrainingResult);
+iblUtil$printResult(finalTrainingResult)
+
+# print dc #
+dcLength = lengths(finalTrainingResult$dc)
+if(dcLength >= 1) {
+  columnSize = length(finalTrainingResult$dc[[1]]$valuesWithClass)
+  dc = matrix(0, nrow=length, ncol=columnSize)
+  rowIndex = 1;
+  for(point in finalTrainingResult$dc) {
+    dc[rowIndex, ] = point$valuesWithClass
+    rowIndex = rowIndex + 1
+  }
+  iblUtil$plotGraph(dc);
+}
